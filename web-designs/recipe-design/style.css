@@ -4,93 +4,292 @@
   box-sizing: border-box;
 }
 
-.container {
-  height: 100vh;
-  width: 100vw;
-  overflow-x: none;
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  overflow-x: hidden;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
 }
 
-.navContainer {
-  width: 100vw;
-  background: #02e7eb;
-  background: linear-gradient(
-    0deg,
-    rgba(2, 231, 235, 1) 0%,
-    rgb(45, 111, 253) 100%
-  );
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/* Navigation */
+header {
+  background: linear-gradient(135deg, #02e7eb 0%, #2d6ffd 100%);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
 nav {
-  width: 100%;
-  padding: 15px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1.5rem 2rem;
 }
 
 .navList {
-  width: 100%;
-  /* margin-left: 15px; */
-  /* margin-right: 15px; */
   list-style: none;
-  min-height: 80px;
   display: flex;
-  font-size: 2rem;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.navLogo p {
+  color: white;
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .navLinks {
   display: flex;
-  gap: 25px;
+  gap: 2rem;
   align-items: center;
 }
 
 .navLinks a {
-  color: whitesmoke;
+  color: white;
   text-decoration: none;
   text-transform: capitalize;
   font-weight: 500;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  position: relative;
 }
 
-.navLogo {
-  color: whitesmoke;
-  font-size: 2.1rem;
+.navLinks a::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: white;
+  transition: width 0.3s ease;
 }
 
-.footerBox {
-  background: #02e7eb;
-  background: linear-gradient(
-    0deg,
-    rgba(2, 231, 235, 1) 0%,
-    rgb(45, 111, 253) 100%
-  );
+.navLinks a:hover::after {
   width: 100%;
-  min-height: 40px;
 }
 
-.footerBox p {
-  color: whitesmoke;
-  text-align: center;
+.navLinks a:hover {
+  transform: translateY(-2px);
+}
+
+/* Main Content */
+main {
+  padding: 3rem 1rem;
 }
 
 .contentBox {
-  width: 70%;
-  margin: auto;
-  border: 1px solid black;
-  background-color: antiquewhite;
+  max-width: 1200px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 100px;
+  gap: 4rem;
 }
 
 .item {
+  background: white;
+  border-radius: 20px;
+  padding: 2.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+.leftBox {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.leftBox h2 {
+  font-size: 2rem;
+  color: #2d6ffd;
+  margin-bottom: 0.5rem;
+}
+
+.leftBox > div h2 {
+  font-size: 1.5rem;
+  color: #667eea;
+  margin-bottom: 0.8rem;
+}
+
+.ingBox,
+.recipeBox {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: #333;
+}
+
+.ingBox {
+  list-style: none;
+  padding-left: 0;
+}
+
+.ingBox li {
+  padding: 0.4rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.ingBox li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #02e7eb;
+  font-weight: bold;
+}
+
+.recipeBox {
+  padding-left: 1.5rem;
+}
+
+.recipeBox li {
+  padding: 0.5rem 0;
+}
+
+.rightBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
 
 .rightBox img {
+  width: 100%;
+  max-width: 450px;
   height: 400px;
   object-fit: cover;
   border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  transition: transform 0.4s ease;
+}
+
+.rightBox img:hover {
+  transform: scale(1.05) rotate(2deg);
+}
+
+/* Footer */
+footer {
+  background: linear-gradient(135deg, #02e7eb 0%, #2d6ffd 100%);
+  margin-top: 3rem;
+  box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.footerBox {
+  padding: 1.5rem 2rem;
+  text-align: center;
+}
+
+.footerBox p {
+  color: white;
+  font-size: 1rem;
+}
+
+/* Media Queries */
+@media screen and (max-width: 1024px) {
+  .item {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .rightBox img {
+    max-width: 100%;
+    height: 350px;
+  }
+
+  .contentBox {
+    padding: 2rem 1rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .navList {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+
+  .navLogo p {
+    font-size: 1.5rem;
+  }
+
+  .navLinks {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .navLinks a {
+    font-size: 1rem;
+  }
+
+  .item {
+    padding: 1.5rem;
+  }
+
+  .leftBox h2 {
+    font-size: 1.6rem;
+  }
+
+  .leftBox > div h2 {
+    font-size: 1.3rem;
+  }
+
+  .rightBox img {
+    height: 300px;
+  }
+
+  .contentBox {
+    gap: 2.5rem;
+  }
+
+  main {
+    padding: 2rem 0.5rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .navLogo p {
+    font-size: 1.3rem;
+  }
+
+  .navLinks a {
+    font-size: 0.9rem;
+  }
+
+  .item {
+    padding: 1rem;
+  }
+
+  .leftBox h2 {
+    font-size: 1.4rem;
+  }
+
+  .leftBox > div h2 {
+    font-size: 1.2rem;
+  }
+
+  .ingBox,
+  .recipeBox {
+    font-size: 0.95rem;
+  }
+
+  .rightBox img {
+    height: 250px;
+  }
+
+  .footerBox p {
+    font-size: 0.85rem;
+  }
 }
