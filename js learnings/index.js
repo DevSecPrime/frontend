@@ -45,9 +45,28 @@
 //  text.textContent = `${event.target.value} device selected`
 // });
 
-let key = document.querySelector("h1");
-window.addEventListener("keydown", (e) => {
-  if (e.key !== " ") {
-    key.textContent = `${e.key}`;
+// let key = document.querySelector("h1");
+// window.addEventListener("keydown", (e) => {
+//   if (e.key !== " ") {
+//     key.textContent = `${e.key}`;
+//   }
+// });
+
+let btn = document.querySelector("#uploadBtn");
+let fileInput = document.querySelector("#fileInp");
+
+btn.addEventListener("click", () => {
+  fileInput.click();
+});
+
+fileInput.addEventListener("change", (event) => {
+  console.log({ event });
+
+  const file = event.target.files[0];
+
+  if (file) {
+    console.log("here");
+    console.log({ fileNme: file.name });
+    btn.textContent = `${file.name}`;
   }
 });

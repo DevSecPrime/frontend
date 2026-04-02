@@ -13,31 +13,53 @@
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        font-family: "Courier New", Courier, monospace;
+        font-family: "Helvetica";
       }
 
+      html,
       body {
-        background-color: #121212;
-        color: #e0e0e0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        font-family: "Courier New", Courier, monospace;
+        height: 100%;
+        width: 100%;
       }
 
-      .keyBox {
+      .key {
         /* background-color: #1e1e1e; */
-        padding: 20px 40px;
+        height: 100%;
+        width: 100%;
+        padding: 22px 25px;
         border-radius: 12px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        background-color: rgba(21, 20, 20, 0.708);
         user-select: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
 
-      h1 {
+      input {
+        display: none;
+      }
+
+      #uploadBtn {
+        background: #e32323be;
+        padding: 22px 24px;
+        border-radius: 12px;
+        color: white;
+        font-weight: 400;
+        letter-spacing: 1.2px;
+      }
+
+      #uploadBtn:hover {
+        color: red;
+        background: #fff;
+        border: 1px solid red;
+        transition: 0.1s linear;
+      }
+
+      /* h1 {
         color: #e0e0e0;
         font-size: 10rem;
-      }
+      } */
     </style>
   </head>
   <body>
@@ -86,9 +108,15 @@
       <option value="mi">Xiaomi</option>
     </select> -->
 
-    <div class="keyBox">
+    <!-- <div class="keyBox">
       <h1>H</h1>
+    </div> -->
+
+    <div class="key">
+      <input id="fileInp" type="file" />
+      <span id="uploadBtn">Upload file</span>
     </div>
+
     <script src="/index.js"></script>
   </body>
 </html>
