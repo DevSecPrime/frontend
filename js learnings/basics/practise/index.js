@@ -52,21 +52,54 @@
 //   }
 // });
 
-let btn = document.querySelector("#uploadBtn");
-let fileInput = document.querySelector("#fileInp");
+// let btn = document.querySelector("#uploadBtn");
+// let fileInput = document.querySelector("#fileInp");
 
-btn.addEventListener("click", () => {
-  fileInput.click();
-});
+// btn.addEventListener("click", () => {
+//   fileInput.click();
+// });
 
-fileInput.addEventListener("change", (event) => {
-  console.log({ event });
+// fileInput.addEventListener("change", (event) => {
+//   console.log({ event });
 
-  const file = event.target.files[0];
+//   const file = event.target.files[0];
 
-  if (file) {
-    console.log("here");
-    console.log({ fileNme: file.name });
-    btn.textContent = `${file.name}`;
-  }
+//   if (file) {
+//     console.log("here");
+//     console.log({ fileNme: file.name });
+//     btn.textContent = `${file.name}`;
+//   }
+// });
+
+let form = document.querySelector("form");
+
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  let inputs = form.querySelectorAll("input[type='text']");
+
+  let profileValue = inputs[0].value;
+  let nameValue = inputs[1].value;
+  let descValue = inputs[2].value;
+
+  // Create card
+  let card = document.createElement("div");
+  card.classList.add("card");
+
+  let profilePic = document.createElement("img");
+  profilePic.src = profileValue || "https://via.placeholder.com/100";
+
+  let name = document.createElement("h3");
+  name.textContent = nameValue;
+
+  let description = document.createElement("p");
+  description.textContent = descValue;
+
+  card.append(profilePic, name, description);
+
+  // Hide form
+  form.style.display = "none";
+
+  // Add card to body
+  document.body.appendChild(card);
 });
