@@ -1,0 +1,27 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+.main {
+  height: 100%;
+  width: 100%;
+}
+
+.main {
+  overflow: hidden;
+  background-color: rgb(18, 14, 14);
+  position: relative;
+}
+
+.box {
+  position: absolute;
+  background-color: rgb(251, 255, 4);
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  transition: all cubic-bezier(0.19, 1, 0.22, 1) 1s;
+}
