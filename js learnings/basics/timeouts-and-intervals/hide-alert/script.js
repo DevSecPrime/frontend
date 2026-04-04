@@ -1,7 +1,7 @@
 let second = 3;
 setInterval(() => {
   document.querySelector("#alertBox").classList.toggle("hide");
-  console.log("aryan");
+  console.log("hidden");
   // display = "none";
 }, second * 1000);
 
