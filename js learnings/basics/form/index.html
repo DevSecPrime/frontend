@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form Validation</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <div class="formContainer">
+      <form id="myForm">
+        <!-- First Name -->
+        <div class="textContainer">
+          <input
+            type="text"
+            class="inputText"
+            placeholder="Enter your first name"
+          />
+          <small class="validationMessage"
+            >First name must be at least 5 characters</small
+          >
+        </div>
+
+        <!-- Last Name -->
+        <div class="textContainer">
+          <input
+            type="text"
+            class="inputText"
+            placeholder="Enter your last name"
+          />
+          <small class="validationMessage"
+            >Last name must be at least 5 characters</small
+          >
+        </div>
+
+        <!-- Email -->
+        <div class="textContainer">
+          <input
+            type="email"
+            class="inputText"
+            placeholder="Enter your email"
+          />
+          <small class="validationMessage">Please enter a valid email</small>
+        </div>
+
+        <!-- About -->
+        <div class="textContainer">
+          <textarea
+            class="inputText"
+            placeholder="Tell us about yourself"
+          ></textarea>
+          <small class="validationMessage"
+            >This field must be at least 10 characters</small
+          >
+        </div>
+
+        <!-- Submit -->
+        <input type="submit" value="Submit" />
+      </form>
+    </div>
+    <script src="./script.js"></script>
+  </body>
+</html>
