@@ -1,0 +1,50 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+body {
+  height: 100vh;
+  background: linear-gradient(135deg, #141414, #2b2b2b);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  text-align: center;
+}
+
+/* Alert Box */
+.alert {
+  background: #4caf50;
+  color: white;
+  padding: 15px 20px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+/* Hidden state (you will toggle this in JS) */
+.hide {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Button */
+button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  background: #00bcd4;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #0097a7;
+}
