@@ -1,0 +1,990 @@
+/* ─── CSS VARIABLES ─────────────────────────────── */
+:root {
+  --cream: #fff8f5;
+  --blush: #ffe4dc;
+  --rose: #ffb3a0;
+  --coral: #ff7f6b;
+  --tomato: #ff4f38;
+  --cherry: #d63b2a;
+  --peach: #ffcbb4;
+  --tangerine: #ff8c42;
+  --amber: #ffb347;
+  --white: #ffffff;
+  --ink: #2b1a17;
+  --muted: #9a6e68;
+  --card-shadow: 0 8px 32px rgba(214, 59, 42, 0.12);
+  --card-hover: 0 16px 48px rgba(214, 59, 42, 0.22);
+}
+
+/* ─── RESET & BASE ──────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "DM Sans", sans-serif;
+  background: var(--cream);
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ─── BACKGROUND BLOBS ──────────────────────────── */
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.35;
+  pointer-events: none;
+  z-index: 0;
+}
+body::before {
+  width: 520px;
+  height: 520px;
+  background: radial-gradient(circle, var(--rose), var(--peach));
+  top: -120px;
+  right: -120px;
+}
+body::after {
+  width: 420px;
+  height: 420px;
+  background: radial-gradient(circle, var(--amber), var(--coral));
+  bottom: -100px;
+  left: -100px;
+}
+
+/* ─── LAYOUT ────────────────────────────────────── */
+.app-wrapper {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+}
+
+/* ─── HEADER ────────────────────────────────────── */
+header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 48px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.header-text h1 {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+.header-text h1 span {
+  color: var(--tomato);
+  font-style: italic;
+}
+.header-text p {
+  font-size: 0.92rem;
+  color: var(--muted);
+  margin-top: 6px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
+/* ─── ADD BUTTON ────────────────────────────────── */
+.btn-add {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--tomato) 0%, var(--tangerine) 100%);
+  box-shadow: 0 6px 24px rgba(255, 79, 56, 0.45);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+.btn-add::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--tangerine), var(--cherry));
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.btn-add:hover {
+  transform: scale(1.08);
+  box-shadow: 0 10px 32px rgba(255, 79, 56, 0.55);
+}
+.btn-add:hover::before {
+  opacity: 1;
+}
+.btn-add:active {
+  transform: scale(0.96);
+}
+.btn-add svg {
+  position: relative;
+  z-index: 1;
+  transition: transform 0.25s ease;
+}
+.btn-add:hover svg {
+  transform: rotate(90deg);
+}
+
+/* ─── MODAL OVERLAY ─────────────────────────────── */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(43, 26, 23, 0.45);
+  backdrop-filter: blur(6px);
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.modal-overlay.active {
+  display: flex;
+}
+
+/* ─── MODAL ─────────────────────────────────────── */
+.modal {
+  background: var(--white);
+  border-radius: 24px;
+  padding: 36px;
+  width: 100%;
+  max-width: 520px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 24px 64px rgba(43, 26, 23, 0.22);
+  animation: modalIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  position: relative;
+  scrollbar-width: thin;
+  scrollbar-color: var(--rose) transparent;
+}
+.modal::-webkit-scrollbar {
+  width: 4px;
+}
+.modal::-webkit-scrollbar-thumb {
+  background: var(--rose);
+  border-radius: 4px;
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.88) translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+.modal-header h2 {
+  font-family: "Playfair Display", serif;
+  font-size: 1.5rem;
+  color: var(--ink);
+}
+.btn-close {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: var(--blush);
+  color: var(--muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  transition:
+    background 0.2s,
+    color 0.2s;
+  flex-shrink: 0;
+}
+.btn-close:hover {
+  background: var(--rose);
+  color: var(--cherry);
+}
+
+/* ─── FORM FIELDS ───────────────────────────────── */
+.field {
+  margin-bottom: 20px;
+}
+.field label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.field input[type="text"],
+.field textarea,
+.field select {
+  width: 100%;
+  border: 2px solid var(--blush);
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 0.95rem;
+  color: var(--ink);
+  background: var(--cream);
+  outline: none;
+  resize: none;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+  -webkit-appearance: none;
+}
+.field input:focus,
+.field textarea:focus,
+.field select:focus {
+  border-color: var(--coral);
+  box-shadow: 0 0 0 4px rgba(255, 127, 107, 0.15);
+}
+.field textarea {
+  min-height: 100px;
+}
+
+/* ─── IMAGE UPLOAD ──────────────────────────────── */
+.image-upload-area {
+  border: 2px dashed var(--rose);
+  border-radius: 14px;
+  padding: 24px;
+  text-align: center;
+  cursor: pointer;
+  background: var(--blush);
+  transition:
+    background 0.2s,
+    border-color 0.2s;
+  position: relative;
+}
+.image-upload-area:hover {
+  background: var(--peach);
+  border-color: var(--coral);
+}
+.image-upload-area input[type="file"] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+}
+.image-upload-area .upload-icon {
+  font-size: 2rem;
+  margin-bottom: 6px;
+}
+.image-upload-area p {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.image-upload-area p span {
+  color: var(--tomato);
+  font-weight: 600;
+}
+.image-preview {
+  margin-top: 12px;
+  display: none;
+  position: relative;
+}
+.image-preview img {
+  width: 100%;
+  border-radius: 10px;
+  max-height: 160px;
+  object-fit: cover;
+}
+.image-preview .remove-img {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: var(--cherry);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ─── PRIORITY PILLS ────────────────────────────── */
+.tag-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+.tag-pill {
+  padding: 5px 14px;
+  border-radius: 50px;
+  border: 2px solid transparent;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  background: var(--blush);
+  color: var(--muted);
+}
+.tag-pill:hover,
+.tag-pill.selected {
+  background: var(--tomato);
+  color: white;
+  border-color: var(--tomato);
+}
+.tag-pill.low.selected {
+  background: var(--amber);
+  border-color: var(--amber);
+}
+.tag-pill.medium.selected {
+  background: var(--coral);
+  border-color: var(--coral);
+}
+.tag-pill.high.selected {
+  background: var(--tomato);
+  border-color: var(--tomato);
+}
+.tag-pill.urgent.selected {
+  background: var(--cherry);
+  border-color: var(--cherry);
+}
+
+/* ─── SUBMIT BUTTON ─────────────────────────────── */
+.btn-create {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  background: linear-gradient(135deg, var(--tomato), var(--tangerine));
+  color: white;
+  font-family: "DM Sans", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  box-shadow: 0 6px 20px rgba(255, 79, 56, 0.35);
+  transition:
+    transform 0.15s,
+    box-shadow 0.15s;
+  margin-top: 8px;
+  -webkit-appearance: none;
+}
+.btn-create:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(255, 79, 56, 0.45);
+}
+.btn-create:active {
+  transform: translateY(0);
+}
+
+/* ─── NOTES VIEWPORT & STAGE ────────────────────── */
+.notes-viewport {
+  position: relative;
+  overflow: hidden;
+}
+.notes-stage {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ─── NOTE CARD ─────────────────────────────────── */
+.note-card {
+  background: var(--white);
+  border-radius: 20px;
+  padding: 28px;
+  box-shadow: var(--card-shadow);
+  transition:
+    box-shadow 0.25s,
+    transform 0.25s;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  border-left: 5px solid var(--coral);
+  animation: cardIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+@keyframes cardIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.note-card:hover {
+  box-shadow: var(--card-hover);
+  transform: translateY(-3px);
+}
+.note-card.priority-low {
+  border-left-color: var(--amber);
+}
+.note-card.priority-medium {
+  border-left-color: var(--coral);
+}
+.note-card.priority-high {
+  border-left-color: var(--tomato);
+}
+.note-card.priority-urgent {
+  border-left-color: var(--cherry);
+}
+.note-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(
+    circle at top right,
+    var(--blush) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.note-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+.note-title {
+  font-family: "Playfair Display", serif;
+  font-size: 1.22rem;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.3;
+  flex: 1;
+  word-break: break-word;
+}
+.note-actions {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+/* ─── ICON BUTTONS ──────────────────────────────── */
+.icon-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background 0.15s,
+    transform 0.15s;
+}
+.icon-btn:active {
+  transform: scale(0.9);
+}
+.btn-up {
+  background: var(--blush);
+  color: var(--coral);
+}
+.btn-down {
+  background: var(--blush);
+  color: var(--tangerine);
+}
+.btn-del {
+  background: #fff0ee;
+  color: var(--cherry);
+}
+.btn-up:hover {
+  background: var(--coral);
+  color: white;
+}
+.btn-down:hover {
+  background: var(--tangerine);
+  color: white;
+}
+.btn-del:hover {
+  background: var(--cherry);
+  color: white;
+}
+
+.note-body {
+  font-size: 0.92rem;
+  color: #6b4a46;
+  line-height: 1.65;
+  word-break: break-word;
+}
+
+/* ─── NOTE IMAGE ────────────────────────────────── */
+.note-image {
+  border-radius: 12px;
+  overflow: hidden;
+  max-height: 200px;
+}
+.note-image img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+}
+
+/* ─── NOTE FOOTER ───────────────────────────────── */
+.note-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.note-date {
+  font-size: 0.75rem;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.priority-badge {
+  padding: 3px 12px;
+  border-radius: 50px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.badge-low {
+  background: #fff5d6;
+  color: #b37a00;
+}
+.badge-medium {
+  background: #ffe8df;
+  color: #c75a30;
+}
+.badge-high {
+  background: #ffded9;
+  color: var(--tomato);
+}
+.badge-urgent {
+  background: #ffd6d2;
+  color: var(--cherry);
+}
+
+/* ─── EMPTY STATE ───────────────────────────────── */
+.empty-state {
+  text-align: center;
+  padding: 80px 32px;
+}
+.empty-state .empty-icon {
+  font-size: 4rem;
+  margin-bottom: 16px;
+}
+.empty-state h3 {
+  font-family: "Playfair Display", serif;
+  font-size: 1.4rem;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+.empty-state p {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+/* ─── NAV DOTS ──────────────────────────────────── */
+.notes-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 28px;
+}
+.nav-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--rose);
+  transition: all 0.2s;
+  cursor: pointer;
+  border: none;
+}
+.nav-dot.active {
+  background: var(--tomato);
+  width: 22px;
+  border-radius: 4px;
+}
+
+/* ─── SCROLL HINT ───────────────────────────────── */
+.scroll-hint {
+  text-align: center;
+  margin-top: 12px;
+  font-size: 0.78rem;
+  color: var(--muted);
+  display: none;
+}
+
+/* ─── CHECKBOX ──────────────────────────────────── */
+.note-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  width: fit-content;
+}
+.custom-check {
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  border: 2px solid var(--rose);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s;
+  background: white;
+}
+.note-checkbox.done .custom-check {
+  background: var(--coral);
+  border-color: var(--coral);
+}
+.note-checkbox.done .custom-check::after {
+  content: "\2713";
+  color: white;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+.note-checkbox.done .check-label {
+  text-decoration: line-through;
+  color: var(--muted);
+}
+.check-label {
+  font-size: 0.85rem;
+  color: var(--ink);
+  font-weight: 500;
+}
+
+/* ═══════════════════════════════════════════════════
+   MEDIA QUERIES
+═══════════════════════════════════════════════════ */
+
+/* ── Tablet (768px) ── */
+@media (max-width: 768px) {
+  .app-wrapper {
+    padding: 36px 20px 72px;
+  }
+  header {
+    margin-bottom: 36px;
+    align-items: center;
+  }
+  .header-text h1 {
+    font-size: 2rem;
+  }
+  .notes-stage {
+    gap: 20px;
+  }
+  .note-card {
+    padding: 22px 20px;
+    border-radius: 16px;
+  }
+  .note-title {
+    font-size: 1.1rem;
+  }
+  .modal {
+    padding: 30px 28px;
+    border-radius: 20px;
+  }
+  .modal-header h2 {
+    font-size: 1.35rem;
+  }
+  .empty-state {
+    padding: 60px 24px;
+  }
+}
+
+/* ── Mobile Large (540px) ── */
+@media (max-width: 540px) {
+  /* Layout */
+  .app-wrapper {
+    padding: 24px 14px 88px;
+  }
+
+  /* Shrink blobs */
+  body::before {
+    width: 280px;
+    height: 280px;
+    top: -60px;
+    right: -60px;
+  }
+  body::after {
+    width: 240px;
+    height: 240px;
+    bottom: -60px;
+    left: -60px;
+  }
+
+  /* Header */
+  header {
+    margin-bottom: 28px;
+    gap: 12px;
+    align-items: center;
+  }
+  .header-text h1 {
+    font-size: 1.75rem;
+  }
+  .header-text p {
+    font-size: 0.82rem;
+    margin-top: 4px;
+  }
+
+  /* Add button */
+  .btn-add {
+    width: 50px;
+    height: 50px;
+  }
+  .btn-add svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  /* Modal slides up from bottom */
+  .modal-overlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+  .modal {
+    padding: 20px 18px 32px;
+    border-radius: 24px 24px 0 0;
+    max-height: 92vh;
+    border-top: 3px solid var(--blush);
+  }
+  .modal::before {
+    content: "";
+    display: block;
+    width: 40px;
+    height: 4px;
+    background: var(--rose);
+    border-radius: 4px;
+    margin: 0 auto 20px;
+  }
+  .modal-header {
+    margin-bottom: 20px;
+  }
+  .modal-header h2 {
+    font-size: 1.25rem;
+  }
+
+  /* Inputs — 16px+ prevents iOS zoom */
+  .field {
+    margin-bottom: 16px;
+  }
+  .field label {
+    font-size: 0.72rem;
+    margin-bottom: 6px;
+  }
+  .field input[type="text"],
+  .field textarea,
+  .field select {
+    font-size: 1rem;
+    padding: 13px 14px;
+    border-radius: 10px;
+  }
+  .field textarea {
+    min-height: 88px;
+  }
+
+  /* Pills */
+  .tag-row {
+    gap: 6px;
+  }
+  .tag-pill {
+    padding: 6px 12px;
+    font-size: 0.75rem;
+  }
+
+  /* Image upload */
+  .image-upload-area {
+    padding: 18px 14px;
+  }
+  .image-upload-area .upload-icon {
+    font-size: 1.6rem;
+  }
+  .image-upload-area p {
+    font-size: 0.8rem;
+  }
+
+  /* Create button */
+  .btn-create {
+    padding: 16px;
+    font-size: 1rem;
+    border-radius: 12px;
+    margin-top: 4px;
+  }
+
+  /* Cards */
+  .notes-stage {
+    gap: 16px;
+  }
+  .note-card {
+    padding: 18px 16px;
+    border-radius: 14px;
+    gap: 12px;
+    border-left-width: 4px;
+  }
+  .note-top {
+    gap: 8px;
+  }
+  .note-title {
+    font-size: 1.05rem;
+    line-height: 1.35;
+  }
+
+  /* Icon buttons */
+  .note-actions {
+    gap: 5px;
+  }
+  .icon-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 9px;
+  }
+  .icon-btn svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .note-body {
+    font-size: 0.88rem;
+    line-height: 1.6;
+  }
+
+  /* Note image */
+  .note-image {
+    max-height: 160px;
+  }
+  .note-image img {
+    height: 160px;
+  }
+
+  /* Footer */
+  .note-footer {
+    gap: 6px;
+  }
+  .note-date {
+    font-size: 0.7rem;
+  }
+  .priority-badge {
+    font-size: 0.65rem;
+    padding: 3px 10px;
+  }
+
+  /* Checkbox */
+  .custom-check {
+    width: 22px;
+    height: 22px;
+  }
+  .check-label {
+    font-size: 0.88rem;
+  }
+
+  /* Empty state */
+  .empty-state {
+    padding: 52px 20px;
+  }
+  .empty-state .empty-icon {
+    font-size: 3rem;
+  }
+  .empty-state h3 {
+    font-size: 1.2rem;
+  }
+  .empty-state p {
+    font-size: 0.85rem;
+  }
+
+  /* Nav dots */
+  .notes-nav {
+    margin-top: 20px;
+    gap: 8px;
+  }
+  .nav-dot {
+    width: 7px;
+    height: 7px;
+  }
+  .nav-dot.active {
+    width: 18px;
+  }
+  .scroll-hint {
+    font-size: 0.72rem;
+    margin-top: 10px;
+  }
+}
+
+/* ── Mobile Small (380px) ── */
+@media (max-width: 380px) {
+  .app-wrapper {
+    padding: 18px 12px 80px;
+  }
+  .header-text h1 {
+    font-size: 1.55rem;
+  }
+  .btn-add {
+    width: 46px;
+    height: 46px;
+  }
+
+  .modal {
+    padding: 20px 14px 28px;
+  }
+  .modal-header h2 {
+    font-size: 1.15rem;
+  }
+
+  .note-card {
+    padding: 15px 13px;
+  }
+  .note-title {
+    font-size: 1rem;
+  }
+
+  /* Stack footer on tiny screens */
+  .note-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .tag-row {
+    gap: 5px;
+  }
+  .tag-pill {
+    padding: 5px 10px;
+    font-size: 0.72rem;
+  }
+
+  .field input[type="text"],
+  .field textarea,
+  .field select {
+    padding: 12px 12px;
+  }
+}

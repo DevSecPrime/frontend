@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bloom Notes</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app-wrapper">
+      <!-- HEADER -->
+      <header>
+        <div class="header-text">
+          <h1>Bloom <span>Notes</span></h1>
+          <p id="note-count-label">0 notes · tap + to begin</p>
+        </div>
+        <button class="btn-add" id="btnOpenModal" aria-label="Add new note">
+          <svg
+            width="22"
+            height="22"
+            viewBox="0 0 22 22"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11 2V20M2 11H20"
+              stroke="white"
+              stroke-width="2.5"
+              stroke-linecap="round"
+            />
+          </svg>
+        </button>
+      </header>
+
+      <!-- EMPTY STATE -->
+      <div class="empty-state" id="emptyState">
+        <div class="empty-icon">🌸</div>
+        <h3>No notes yet</h3>
+        <p>Click the + button above to create your first bloom note</p>
+      </div>
+
+      <!-- NOTES VIEWPORT (shows 3 at a time) -->
+      <div class="notes-viewport" id="notesViewport" style="display: none">
+        <div class="notes-stage" id="notesStage">
+          <!-- Note cards injected here by JS -->
+        </div>
+      </div>
+
+      <!-- NAV DOTS -->
+      <div class="notes-nav" id="notesNav" style="display: none"></div>
+
+      <p class="scroll-hint" id="scrollHint">
+        Showing 3 of <span id="totalCount">0</span> notes · use ↑↓ on cards to
+        navigate
+      </p>
+    </div>
+
+    <!-- CREATE NOTE MODAL -->
+    <div class="modal-overlay" id="modalOverlay">
+      <div
+        class="modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modalTitle"
+      >
+        <div class="modal-header">
+          <h2 id="modalTitle">New Note 🌸</h2>
+          <button class="btn-close" id="btnCloseModal" aria-label="Close">
+            ✕
+          </button>
+        </div>
+
+        <!-- TITLE -->
+        <div class="field">
+          <label for="noteTitle">Title</label>
+          <input
+            type="text"
+            id="noteTitle"
+            placeholder="What's on your mind?"
+          />
+        </div>
+
+        <!-- BODY -->
+        <div class="field">
+          <label for="noteBody">Note</label>
+          <textarea
+            id="noteBody"
+            placeholder="Write your note here…"
+          ></textarea>
+        </div>
+
+        <!-- TODO CHECKBOX ITEM -->
+        <div class="field">
+          <label for="noteTodo">Quick To-Do Item</label>
+          <input type="text" id="noteTodo" placeholder="e.g. Buy groceries" />
+        </div>
+
+        <!-- PRIORITY -->
+        <div class="field">
+          <label>Priority</label>
+          <div class="tag-row" id="priorityGroup">
+            <button class="tag-pill low" data-val="low">🟡 Low</button>
+            <button class="tag-pill medium" data-val="medium">🟠 Medium</button>
+            <button class="tag-pill high" data-val="high">🔴 High</button>
+            <button class="tag-pill urgent" data-val="urgent">🚨 Urgent</button>
+          </div>
+          <input type="hidden" id="notePriority" value="medium" />
+        </div>
+
+        <!-- IMAGE UPLOAD -->
+        <div class="field">
+          <label>Image (optional)</label>
+          <div class="image-upload-area" id="uploadArea">
+            <input type="file" id="noteImage" accept="image/*" />
+            <div class="upload-icon">🖼️</div>
+            <p><span>Click to upload</span> or drop an image</p>
+          </div>
+          <div class="image-preview" id="imagePreview">
+            <img id="previewImg" src="" alt="Preview" />
+            <button class="remove-img" id="removeImg" title="Remove image">
+              ✕
+            </button>
+          </div>
+        </div>
+
+        <button class="btn-create" id="btnCreate">Create Note</button>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
