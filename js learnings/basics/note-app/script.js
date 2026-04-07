@@ -309,3 +309,18 @@ function escHtml(str) {
 
 /* ── Init ── */
 renderNotes();
+
+// console.log(this);
+
+// let obj = {
+//   name: "prime",
+//   sayName: function () {
+//     console.log(this.name);
+//   },
+// };
+
+// obj.sayName();
+
+// document.querySelector(".clickMe").addEventListener("click", () => {
+//   console.log((this.style.color = "red"));
+// });
