@@ -1,9 +1,19 @@
 import Card from "./components/Card";
+import { profiles } from "./components/user";
 
 function App() {
   return (
     <>
-      <Card />
+      {profiles.map((profile, index) => (
+        <Card
+          key={index}
+          username={profile.username}
+          designation={profile.designation}
+          profileImage={profile.profileImage}
+          skills={profile.skills}
+          fullName={profile.fullName}
+        />
+      ))}
     </>
   );
 }
