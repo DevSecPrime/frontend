@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  background-color: rgb(71, 52, 100);
+}
+
+.me-app {
+  padding: 20px;
+  margin: 0 auto;
+  height: 100%;
+  width: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+input,
+button {
+  background-color: rgb(100, 100, 100);
+  color: white;
+  margin: 0 auto;
+  padding: 10px;
+}
