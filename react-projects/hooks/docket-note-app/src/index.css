@@ -1,0 +1,22 @@
+@import "tailwindcss";
+/* index.css or App.css */
+body {
+  background-color: #dce3ed; /* that grey-blue outer bg */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+/* The white floating card — in App.css */
+.app {
+  background: #ffffff;
+  border-radius: 20px;
+  width: 1300px;
+  height: 680px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex; /* so Left + Right sit side by side inside */
+  flex-direction: column;
+}
