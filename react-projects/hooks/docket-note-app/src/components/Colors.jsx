@@ -9,11 +9,13 @@ const Colors = (props) => {
         "#ffadad",  // pink
     ];
 
+
     return (
         <div className={`flex flex-row md:lg:flex-col items-center gap-x-5 md:lg:gap-y-5 transition-all duration-300`}>
             {noteColors.map((color, idx) => (
                 <div
                     className='h-5 w-5 rounded-full cursor-pointer transition-transform hover:scale-125'
+                    key={idx}
                     style={{
                         backgroundColor: color,
                         // 👇 This is the magic
@@ -26,7 +28,7 @@ const Colors = (props) => {
                             : `${(noteColors.length - idx) * 40}ms`, // close: reverse stagger
                         pointerEvents: props.isOpenColorPallet ? 'auto' : 'none',
                     }}
-                    key={idx}
+                    onClick={() => { props.onColorClick(color) }}
                 />
             ))}
         </div>

@@ -1,9 +1,22 @@
 import React, { useState } from 'react';
 import { Plus } from 'lucide-react';
 import Colors from './Colors';
+import NotesForm from './NotesForm';
 
-const LeftPart = () => {
+const LeftPart = (props) => {
     const [isOpenColorPallet, setIsOpenColorPallet] = useState(false);
+    const [isFormOpen, setIsFormOpen] = useState(false)
+    const [selectedColor, setSelectedColor] = useState(null)
+
+    const colorClickHandler = (color) => {
+        //get color code
+        console.log("color: ", color)
+        setSelectedColor(color)
+        //open form
+        setIsFormOpen(true)
+        //un-visible color pallet
+        setIsOpenColorPallet(false)
+    }
 
     return (
         // Mobile  → horizontal bar at top (flex-row)
@@ -34,9 +47,16 @@ const LeftPart = () => {
                     <Plus size={25} color="#ffffff" strokeWidth={1.5} />
                 </div>
 
-                <Colors isOpenColorPallet={isOpenColorPallet} />
+                <Colors isOpenColorPallet={isOpenColorPallet} onColorClick={colorClickHandler} />
 
             </div>
+
+            {/* show form once is open form is true  */}
+            {
+                isFormOpen && (
+                    <NotesForm color={selectedColor} onClose={() => setIsFormOpen(false)} addNotes={props.addNotes} />
+                )
+            }
         </div>
     );
 };

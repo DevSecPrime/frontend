@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+* {
+  font-family: Helvetica;
+}
+
 body {
   background-color: #dce3ed;
   display: flex;

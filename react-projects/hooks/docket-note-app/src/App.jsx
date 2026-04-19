@@ -4,6 +4,7 @@ import Notes from './components/Notes';
 const App = () => {
 
 
+
   return (
     <div className='app'>
       <Notes />
