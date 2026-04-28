@@ -9,6 +9,8 @@ const Navbar = () => {
                 <li className='cursor-pointer'> <Link to='/'>Home</Link></li>
                 <li className='cursor-pointer'><Link to='/aboutUs'>About</Link></li>
                 <li className='cursor-pointer'><Link to='/contactUs'>Contact</Link></li>
+                <li className='cursor-pointer'><Link to='/products'>Products</Link></li>
+                <li className='cursor-pointer'><Link to="/courses">Courses</Link></li>
             </ul>
         </div>
     );
