@@ -4,6 +4,11 @@ const VITE_UNSPLASH_API_KEY = import.meta.env.VITE_UNSPLASH_API_KEY;
 
 const VITE_PEXELS_API_KEY = import.meta.env.VITE_PEXELS_API_KEY;
 
+console.log({
+  VITE_UNSPLASH_API_KEY,
+  VITE_PEXELS_API_KEY,
+});
+
 /**
  * Get images from API
  */
