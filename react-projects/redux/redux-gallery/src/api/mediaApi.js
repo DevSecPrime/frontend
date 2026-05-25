@@ -4,10 +4,24 @@ const VITE_UNSPLASH_API_KEY = import.meta.env.VITE_UNSPLASH_API_KEY;
 
 const VITE_PEXELS_API_KEY = import.meta.env.VITE_PEXELS_API_KEY;
 
-console.log({
-  VITE_UNSPLASH_API_KEY,
-  VITE_PEXELS_API_KEY,
-});
+
+
+const normalizeThData = (data, type) => {
+  if (Object.keys(data).length === 0) {
+    console.error({
+      error: "Something went wrong while calling the api : ",
+      error,
+    });
+  }
+
+  return data.map((d) => ({
+    id: d?.id,
+    title: type === 'photo' ? d?.alt_description : (d?.user?.name || 'video'),
+    type,
+    thumbnailUrl: type === 'photo' ? d?.urls?.thumb : d?.image,
+    mediaUrl: type === 'photo' ? d?.urls?.full : d?.video_files[0].link,
+  }));
+};
 
 /**
  * Get images from API
@@ -21,8 +35,8 @@ export async function getImages(query = "cat", page = 1, limit = 10) {
       },
     });
 
-    console.log({ data: res.data?.results });
-    return res.data?.results;
+
+    return normalizeThData(res.data?.results, "photo");
   } catch (error) {
     console.log({ error });
   }
@@ -35,8 +49,10 @@ export const getVideos = async (query = "Nature", limit = 10) => {
       headers: { Authorization: VITE_PEXELS_API_KEY },
     });
 
-    console.log({ data: res.data?.videos });
-    return res.data?.videos;
+    // console.log({ data: res.data?.videos });
+    // normalizeThData(res.data?.videos);
+    // return res.data?.videos;
+    return normalizeThData(res.data?.videos, 'video')
   } catch (error) {
     console.log({ error });
   }

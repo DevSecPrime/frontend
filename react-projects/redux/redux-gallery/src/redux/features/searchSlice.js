@@ -27,7 +27,7 @@ export const searchSlice = createSlice({
       state.error = null; // when there is loading there should not be any error
     },
     setError(state, action) {
-      state.setError = action.payload;
+      state.error = action.payload;
       state.loading = false; // set loading false when there is an error
     },
     clearResults(state) {
