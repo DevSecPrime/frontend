@@ -5,6 +5,7 @@ import {
   setError,
   setLoading,
   setResults,
+
 } from "../redux/features/searchSlice";
 import ResultCard from "./ResultCard";
 

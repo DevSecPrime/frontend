@@ -1,12 +1,10 @@
 import { useDispatch } from "react-redux";
-import { addCollection, addToast } from "../redux/features/collectionSlice";
+import {
+  removeCollection,
+  removedToast,
+} from "../redux/features/collectionSlice";
 
-const ResultCard = ({ result }) => {
-  // const addToCollection = (item) => {
-  //   const oldItems = JSON.parse(localStorage.getItem("collections")) || []; // managed if not collection array exist in local storage
-  //   const newData = [...oldItems, item];
-  //   localStorage.setItem("collections", JSON.stringify(newData));
-  // };
+const CollectionCard = ({ result }) => {
   const dispatch = useDispatch();
   return (
     <article className="w-[18vw] h-80 overflow-hidden rounded-2xl bg-slate-950 shadow-lg relative">
@@ -46,17 +44,17 @@ const ResultCard = ({ result }) => {
         </h2>
 
         <button
-          className="rounded-full bg-emerald-400 px-3 py-1 text-sm font-semibold text-slate-950 active:scale-95 cursor-pointer"
+          className="rounded-full bg-red-400 px-3 py-1 text-sm font-semibold text-slate-950 active:scale-95 cursor-pointer"
           onClick={() => {
-            dispatch(addCollection(result));
-            dispatch(addToast());
+            dispatch(removeCollection(result?.id));
+            dispatch(removedToast());
           }}
         >
-          Save
+          Remove
         </button>
       </div>
     </article>
   );
 };
 
-export default ResultCard;
+export default CollectionCard;
