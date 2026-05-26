@@ -35,7 +35,7 @@ const ResultCard = ({ result }) => {
 
       <div
         id="bottom"
-        className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-3 bg-gradient-to-t from-black/90 to-transparent px-4 py-3 text-white"
+        className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-3 bg-linear-to-t from-black/90 to-transparent px-4 py-3 text-white"
       >
         <h2 className="truncate text-base font-semibold capitalize">
           {result.title}
