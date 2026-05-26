@@ -20,29 +20,52 @@ const ResultGrid = () => {
     const fetchData = async () => {
       const fetcher = activeTab === "videos" ? getVideos : getImages;
 
-      try {
-        dispatch(setLoading());
-        const data = await fetcher(query);
-        console.log("apiData", data);
-        dispatch(setResults(data));
-      } catch (error) {
-        console.error(error);
-        dispatch(setError(error.message));
+      dispatch(setLoading());
+      const data = await fetcher(query);
+
+      if (data.length === 0) {
+        dispatch(setError("No results found."));
+        return;
       }
+
+      dispatch(setResults(data));
     };
 
-    fetchData();
+    fetchData().catch((fetchError) => {
+      console.error(fetchError);
+      dispatch(setError(fetchError.message || "Unexpected error."));
+    });
   }, [query, activeTab, dispatch]);
 
-  if (error) return <h1>Opps! There is an error</h1>;
-  if (loading) return <h1>Loading...</h1>;
+  if (error) {
+    return (
+      <div className="px-6 py-10 text-center text-red-400">
+        <h1 className="text-2xl font-semibold">Oops! Something went wrong.</h1>
+        <p>{error}</p>
+      </div>
+    );
+  }
+
+  if (loading) {
+    return (
+      <div className="px-6 py-10 text-center text-white">
+        <h1 className="text-2xl font-semibold">Loading...</h1>
+      </div>
+    );
+  }
+
+  if (!results.length) {
+    return (
+      <div className="px-6 py-10 text-center text-slate-300">
+        <p className="text-xl">Search for photos or videos above.</p>
+      </div>
+    );
+  }
 
   return (
-    <div className="flex flex-wrap justify-center gap-2 px-2 py-6 overflow-auto">
-      {results.map((result, idx) => (
-        <div key={idx}>
-          <ResultCard result={result} />
-        </div>
+    <div className="flex flex-wrap justify-center gap-4 px-4 py-6 overflow-auto">
+      {results.map((result) => (
+        <ResultCard key={result.id || result.mediaUrl} result={result} />
       ))}
     </div>
   );

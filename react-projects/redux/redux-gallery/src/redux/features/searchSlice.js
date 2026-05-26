@@ -14,21 +14,24 @@ export const searchSlice = createSlice({
   reducers: {
     setQuery(state, action) {
       state.query = action.payload;
+      state.error = null;
     },
     setActiveTab(state, action) {
       state.activeTab = action.payload;
+      state.error = null;
     },
     setResults(state, action) {
       state.results = action.payload;
-      state.loading = false; // if we have got the results off the loading
+      state.loading = false;
+      state.error = null;
     },
     setLoading(state) {
       state.loading = true;
-      state.error = null; // when there is loading there should not be any error
+      state.error = null;
     },
     setError(state, action) {
       state.error = action.payload;
-      state.loading = false; // set loading false when there is an error
+      state.loading = false;
     },
     clearResults(state) {
       state.results = [];
