@@ -20,6 +20,7 @@ const normalizeThData = (data, type) => {
     type,
     thumbnailUrl: type === 'photo' ? d?.urls?.thumb : d?.image,
     mediaUrl: type === 'photo' ? d?.urls?.full : d?.video_files[0].link,
+    url: type === 'photo' ? d?.links?.html : d?.url
   }));
 };
 
@@ -35,6 +36,8 @@ export async function getImages(query = "cat", page = 1, limit = 10) {
       },
     });
 
+    // console.log({ data: res.data?.results })
+
 
     return normalizeThData(res.data?.results, "photo");
   } catch (error) {
@@ -49,8 +52,7 @@ export const getVideos = async (query = "Nature", limit = 10) => {
       headers: { Authorization: VITE_PEXELS_API_KEY },
     });
 
-    // console.log({ data: res.data?.videos });
-    // normalizeThData(res.data?.videos);
+    // console.log({ data: res.data?.videos });F
     // return res.data?.videos;
     return normalizeThData(res.data?.videos, 'video')
   } catch (error) {

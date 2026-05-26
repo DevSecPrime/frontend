@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getImages, getVideos } from "../api/mediaApi";
 import {
@@ -32,7 +32,7 @@ const ResultGrid = () => {
     };
 
     fetchData();
-  }, [query, activeTab]);
+  }, [query, activeTab, dispatch]);
 
   if (error) return <h1>Opps! There is an error</h1>;
   if (loading) return <h1>Loading...</h1>;
